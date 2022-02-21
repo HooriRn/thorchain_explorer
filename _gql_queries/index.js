@@ -65,4 +65,11 @@ const volumeHistoryQuery = gql`query volumeHistory($from: Int64!, $until: Int64!
   }
 }`
 
-export { networkQuery, volumeHistoryQuery }
+
+const runePriceQuery = gql`query runePrice {
+  rune: pool (asset: "BNB.BUSD-BD1") {
+    runePrice: price
+  }
+}`
+
+export { networkQuery, volumeHistoryQuery, runePriceQuery }
