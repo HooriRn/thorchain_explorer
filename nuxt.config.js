@@ -38,6 +38,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/apollo',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -56,4 +57,12 @@ export default {
       ]
   },
 
+  // Graphql appollo configure
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: 'https://midgard.thorchain.info/v2',
+      }
+    }
+  }
 }

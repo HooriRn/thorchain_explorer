@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import {networkQuery, volumeHistoryQuery} from '~/_gql_queries'
+
 export default {
   name: "IndexPage",
   data() {
@@ -39,10 +41,22 @@ export default {
     };
   },
   apollo: {
-    characters: {
+    $prefetch: false,
 
-    }
-  }
+    network: networkQuery,
+
+    volumeHistoryQuery: {
+      query: volumeHistoryQuery,
+      update: data => data.volumeHistory,
+      variables() {
+        let d = new Date()
+        let until = Math.round(Date.now() / 1000);
+        let from = Math.round(d.setDate(d.getDate() - 7) / 1000);
+
+        return { from, until }
+      }
+    },
+  },
 };
 </script>
 
