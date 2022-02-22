@@ -1,15 +1,12 @@
 @import "./normalize.css"; // normalize css for cross-browser integrations
 @import "font"; //applications font-face
 
-// third party libs
-@import url('https://raw.githubusercontent.com/leeoniya/uPlot/master/dist/uPlot.min.css');
-
 * {
   box-sizing: border-box;
 }
 
 html, body, #__nuxt, #__layout, main {
-  height: 100% !important;
+  min-height: 100vh !important;
   font-size: 16px; //root font-size
 }
 
