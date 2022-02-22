@@ -2,7 +2,7 @@
   <div class="side-bar-container">
       <img class="logo" src="@/assets/images/thorchain.png" alt="">
       <div class="side-bar-lists">
-        <button :class="[{active: index == activeRoute}, 'side-bar-item']" v-for="(item, index) in sidebarLists" :key="index">
+        <button :class="[{active: index == 0}, 'side-bar-item']" v-for="(item, index) in sidebarLists" :key="index">
           {{item.name}}
         </button>
       </div>
@@ -60,7 +60,11 @@ export default {
     color: $mainFontColor;
 
     &:hover {
-      color: #fff;
+      color: #e6e6e6;
+    }
+
+    &.active {
+      color: #e6e6e6;
     }
   }
 }
