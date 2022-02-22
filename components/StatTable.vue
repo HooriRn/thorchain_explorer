@@ -2,7 +2,7 @@
   <div class="stat-table">
     <div class="stat-header">
       <div class="stat-header-text">{{ header }}</div>
-      <button v-if="button" class="stat-header-btn"></button>
+      <button v-if="false" class="stat-header-btn"></button>
     </div>
     <div class="stat-table-container">
       <div class="stat-table-row" v-for="(row, ri) in tableSettings" :key="ri">
@@ -15,7 +15,13 @@
             {{ colItem.name }}
           </div>
           <div class="col-value">
-            {{ colItem.value }}
+            <template v-if="colItem.filter">
+              {{ colItem.value }}
+            </template>
+            <template v-else>
+              {{ colItem.value | number('0,0') }}
+            </template>
+            <span class="usd-value" v-if="colItem.usdValue">({{ colItem.value * runePrice | currency }})</span>
           </div>
         </div>
       </div>
@@ -24,8 +30,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: "statTable",
+  computed: {
+    ...mapGetters({
+      runePrice: 'getRunePrice'
+    })
+  },
   props: {
     header: String,
     tableSettings: Array,
@@ -70,6 +83,11 @@ export default {
 
       .col-value {
         color: #e6e6e6;
+
+        .usd-value {
+          color: #9F9F9F;
+          font-size: .8rem;
+        }
       }
 
       .col-header {
