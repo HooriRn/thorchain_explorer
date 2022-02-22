@@ -1,8 +1,24 @@
 <template>
   <div class="chart-wrapper">
     <div class="chart-header">Volume <span style="color: #9F9F9F">(USD)</span></div>
+    <div v-show="chartSettings" class="chart-legends">
+      <div class="legend-wrapper">
+        <div class="legend-header" style="background-color: rgb(255, 177, 78)"></div>
+        Total
+      </div>
+      <div class="legend-wrapper">
+        <div class="legend-header" style="background-color: rgb(54, 176, 121)"></div>
+        Rune Volume
+      </div>
+      <div class="legend-wrapper">
+        <div class="legend-header" style="background-color: rgb(234, 95, 148)"></div>
+        Asset Volume
+      </div>
+    </div>
     <div v-show="chartSettings" class="chart"></div>
-    <div v-if="!chartSettings">Fetching Data...</div>
+    <div v-if="!chartSettings" class="skeleton-placeholder">
+      <BounceLoader color="#9F9F9F" size="2rem"/>
+    </div>
   </div>
 </template>
 
@@ -10,6 +26,7 @@
 import uPlot from 'uplot';
 import 'uplot/dist/uPlot.min.css';
 import { mapGetters } from 'vuex';
+import BounceLoader from 'vue-spinner/src/BounceLoader.vue'
 
 export default {
   name: 'chartComponent',
@@ -20,6 +37,9 @@ export default {
     return {
       uPlot: null
     }
+  },
+  components: {
+    BounceLoader
   },
   computed: {
     ...mapGetters({
@@ -101,6 +121,7 @@ export default {
         //tooltip
         tooltip = document.createElement("div");
         tooltip.classList.add('tooltip');
+        tooltip.style.display = "none";
 
         // move legend into plot bounds
         overEl.appendChild(tooltip);
@@ -155,21 +176,21 @@ export default {
         {
           label: "Total",
           stroke: "rgb(255, 177, 78)",
-          fill: "rgb(255, 177, 78, .4)",
+          fill: "rgb(255, 177, 78, .1)",
           width: 2,
           paths: spline(),
         },
         {
           label: "Asset Volume",
           stroke: "rgb(234, 95, 148)",
-          fill: "rgb(234, 95, 148, .4)",
+          fill: "rgb(234, 95, 148, .1)",
           width: 2,
           paths: spline(),
         },
         {
           label: "RUNE Volume",
           stroke: "rgb(54, 176, 121)",
-          fill: "rgb(54, 176, 121, .4)",
+          fill: "rgb(54, 176, 121, .1)",
           width: 2,
           paths: spline(),
         },
@@ -208,10 +229,13 @@ export default {
 
 <style lang="scss">
 .chart-wrapper {
+  display: flex;
+  flex-direction: column;
   background-color: rgb(25, 28, 30);
   border-radius: 5px;
   border: 2px solid #263238;
   padding: 1rem;
+  height: 400px;
 
   .chart-header {
     color: #e6e6e6;
@@ -219,6 +243,7 @@ export default {
 }
 
 .tooltip {
+  display: none;
   position: absolute;
   left: 0;
   top: 0;
@@ -249,5 +274,36 @@ export default {
       margin-left: 5px;
     }
   }
+}
+
+.chart-legends {
+  margin: 10px 0 -20px 1rem;
+}
+
+.legend-wrapper {
+  display: inline-flex;
+  align-items: center;
+  color: #e6e6e6;
+  font-size: .8rem;
+  margin: 0 .3rem;
+
+  &:first-of-type {
+    margin-left: 0;
+  }
+
+  .legend-header {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+}
+
+.skeleton-placeholder {
+  display: flex;
+  flex: 1 0;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
 }
 </style>

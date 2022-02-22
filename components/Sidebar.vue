@@ -83,11 +83,13 @@ export default {
     background: transparent;
     border: none;
     width: 100%;
-    padding: .5rem 0;
+    padding: .7rem;
     text-align: left;
+    border-radius: .5rem;
     color: $mainFontColor;
 
     &:hover {
+      background-color: #191c1e;
       color: #e6e6e6;
     }
 

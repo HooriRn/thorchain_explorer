@@ -21,6 +21,7 @@
     "uplot-vue": "^1.1.1",
     "vue": "^2.6.14",
     "vue-server-renderer": "^2.6.14",
+    "vue-spinner": "^1.0.4",
     "vue-template-compiler": "^2.6.14",
     "vue2-filters": "^0.14.0",
     "webpack": "^4.46.0"

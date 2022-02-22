@@ -4,7 +4,7 @@
       <div class="stat-header-text">{{ header }}</div>
       <button v-if="false" class="stat-header-btn"></button>
     </div>
-    <div class="stat-table-container">
+    <div v-if="tableSettings && tableSettings.length > 0" class="stat-table-container">
       <div class="stat-table-row" v-for="(row, ri) in tableSettings" :key="ri">
         <div
           class="stat-table-item"
@@ -16,12 +16,15 @@
           </div>
           <div class="col-value">
             <template v-if="colItem.filter">
-              {{ colItem.value }}
+              {{ colItem.value || '-' }}
             </template>
             <template v-else>
-              {{ colItem.value | number('0,0') }}
+              <template v-if="colItem.value">
+                {{ colItem.value | number('0,0') }}
+              </template>
+              <template v-else> - </template>
             </template>
-            <span class="usd-value" v-if="colItem.usdValue">({{ colItem.value * runePrice | currency }})</span>
+            <span class="usd-value" v-if="colItem.value && colItem.usdValue">({{ colItem.value * runePrice | currency }})</span>
           </div>
         </div>
       </div>
