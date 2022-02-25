@@ -75,6 +75,7 @@ export default {
   styleResources: {
     scss: [
       './assets/styles/_colors.scss',
+      '@/assets/styles/_breakpoints.scss'
       ]
   },
 

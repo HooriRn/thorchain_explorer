@@ -2,7 +2,7 @@
   <main id="default-layout">
     <!-- Sidebar -->
     <div id="side-bar">
-      <sidebar />
+      <sidebar :mini="mini" />
     </div>
     <div id="right-content">
       <!-- Searchbar -->
@@ -20,7 +20,29 @@
 
 <script>
 export default {
-  name: 'DefaultLayout'
+  name: 'DefaultLayout',
+  data() {
+    return {
+      mini: false
+    }
+  },
+  methods: {
+    resizedWindow() {
+      // get smaller than lg
+      if (document.body.offsetWidth < 992) {
+        this.mini = true;
+      }
+      else {
+        this.mini = false;
+      }
+    }
+  },
+  mounted() {
+    this.resizedWindow();
+    window.addEventListener('resize', () => {
+      this.resizedWindow();
+    });
+  }
 }
 </script>
 
@@ -30,9 +52,13 @@ export default {
 
   #side-bar {
     background-color: $bgSidebar;
-    flex: 0 0 13.75rem;
     padding: 1rem;
     background-color: rgba(0,0,0, 0.2); /* Black w/opacity/see-through */
+
+    @include lg {
+      display: block;
+      flex: 0 0 13.75rem;
+    }
   }
 }
 </style>

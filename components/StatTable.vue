@@ -73,6 +73,7 @@ export default {
 
   .stat-table-row {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     border-bottom: 1px solid #263238;
 

@@ -210,7 +210,6 @@ export default {
   },
   apollo: {
     $prefetch: false,
-
     network: networkQuery,
     rune: {
       query: runePriceQuery,
@@ -253,7 +252,17 @@ export default {
 
 .stats-container,
 .network-container {
-  width: calc(50% - 1rem);
+  width: 100%;
+
+  @include md {
+    flex: 1 0 29rem;
+  }
+
+  @include lg {
+    flex-grow: 0;
+    flex-basis: initial;
+    width: calc(50% - 1rem);
+  }
 }
 
 .break {

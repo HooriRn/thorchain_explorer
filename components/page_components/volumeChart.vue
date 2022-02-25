@@ -50,7 +50,7 @@ export default {
     getSize() {
       //TODO: change fixed width with relative size
       return {
-        width: document.body.offsetWidth - 332,
+        width: document.body.offsetWidth - (document.getElementById('side-bar').offsetWidth + 96),
         height: 340
       }
     },
