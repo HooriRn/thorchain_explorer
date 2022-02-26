@@ -1,4 +1,4 @@
-import { getStats } from './midgard.api';
+import { getStats, getTxs } from './midgard.api';
 export var $axiosInstace;
 
 // interceptor to catch errors
@@ -53,7 +53,8 @@ export default function ({ $axios }, inject) {
   $axiosInstace = $axios;
 
   let api = {
-    getStats
+    getStats,
+    getTxs
   }
 
   inject('api', api);
