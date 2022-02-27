@@ -69,7 +69,7 @@ export default {
           name: 'Overview',
           unicon: 'appsUnselected',
           icon: 'appsSelected',
-          link: '/'
+          link: '/dashboard'
         },
         {
           name: 'Nodes',
@@ -151,7 +151,7 @@ export default {
       color: #e6e6e6;
     }
 
-    &.nuxt-link-exact-active {
+    &.nuxt-link-active {
       color: #e6e6e6;
 
       .icon.selected {
