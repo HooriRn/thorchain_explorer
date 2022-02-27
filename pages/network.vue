@@ -1,7 +1,7 @@
 <template>
   <div class="network-page-container">
     <div class="nav-header">
-      <nuxt-link to="/network/">Network</nuxt-link>
+      <nuxt-link to="/network">Network</nuxt-link>
       <nuxt-link to="/network/constants/">Constants</nuxt-link>
     </div>
     <nuxt-child></nuxt-child>
@@ -17,7 +17,7 @@ export default {
 <style lang="scss">
 .nav-header {
   margin-bottom: 1rem;
-  
+
   a {
     padding: .5rem .7rem;
     margin: 0 .1rem;

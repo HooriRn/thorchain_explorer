@@ -70,6 +70,30 @@ const volumeHistoryQuery = gql`query volumeHistory($from: Int64!, $until: Int64!
   }
 }`
 
+const bondMetrics = gql`query {
+  bondMetrics: network {
+    activeBonds
+    standbyBonds
+    activeNodeCount
+    standbyNodeCount
+    bondMetrics {
+      active {
+        medianBond
+        minimumBond
+        maximumBond
+        averageBond
+        totalBond
+      }
+      standby {
+        medianBond
+        minimumBond
+        maximumBond
+        averageBond
+        totalBond
+      }
+    }
+  }
+}`
 
 const runePriceQuery = gql`query runePrice {
   rune: pool (asset: "BNB.BUSD-BD1") {
@@ -77,4 +101,4 @@ const runePriceQuery = gql`query runePrice {
   }
 }`
 
-export { networkQuery, volumeHistoryQuery, runePriceQuery }
+export { networkQuery, volumeHistoryQuery, runePriceQuery, bondMetrics }

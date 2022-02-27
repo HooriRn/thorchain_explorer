@@ -3,17 +3,17 @@
     <div style="width: 100%">
       <stat-table :tableSettings="networkSettings" header="Network Overview"></stat-table>
     </div>
-    <div style="width: 50%">
-      <stat-table :tableSettings="topActiveBonds"></stat-table>
+    <div style="width: calc(50% - 1rem)">
+      <stat-table :tableSettings="topActiveBonds" header="Top Active Bonds"></stat-table>
     </div>
-    <div style="width: 50%">
-      <stat-table :tableSettings="topStandbyBonds"></stat-table>
+    <div style="width: calc(50% - 1rem)">
+      <stat-table :tableSettings="topStandbyBonds" header="Top Standby Bonds"></stat-table>
     </div>
   </div>
 </template>
 
 <script>
-import {networkQuery, runePriceQuery} from '~/_gql_queries'
+import {bondMetrics, networkQuery, runePriceQuery} from '~/_gql_queries'
 import StatTable from "~/components/StatTable.vue";
 
 export default {
@@ -22,8 +22,6 @@ export default {
     return {
       network: [],
       rune: [],
-      topActiveBonds: [],
-      topStandbyBonds: [],
     };
   },
   //This could be mixin
@@ -37,11 +35,76 @@ export default {
   apollo: {
     $prefetch: false,
     network: networkQuery,
+    bondMetrics: bondMetrics,
     rune: {
       query: runePriceQuery,
     },
   },
   computed: {
+    topActiveBonds: function() {
+      return [
+        [
+          {
+            name: 'Total Bond',
+            value: ((this.bondMetrics?.bondMetrics?.active?.totalBond ?? 0)/10**8)
+          },
+          {
+            name: 'Average Bond',
+            value: ((this.bondMetrics?.bondMetrics?.active?.averageBond ?? 0)/10**8)
+          },
+          {
+            name: 'Total Node Cound',
+            value: this.bondMetrics?.activeNodeCount
+          }
+        ],
+        [
+          {
+            name: 'Maximum Bond',
+            value: (this.bondMetrics?.bondMetrics?.active?.maximumBond ?? 0)/10**8
+          },
+          {
+            name: 'Median Bond',
+            value: (this.bondMetrics?.bondMetrics?.active?.medianBond ?? 0)/10**8
+          },
+          {
+            name: 'Minimum Bond',
+            value: (this.bondMetrics?.bondMetrics?.active?.minimumBond ?? 0)/10**8
+          }
+        ]
+      ]
+    },
+    topStandbyBonds: function() {
+      return [
+        [
+          {
+            name: 'Total Bond',
+            value: ((this.bondMetrics?.bondMetrics?.standby?.totalBond ?? 0)/10**8)
+          },
+          {
+            name: 'Average Bond',
+            value: ((this.bondMetrics?.bondMetrics?.standby?.averageBond ?? 0)/10**8)
+          },
+          {
+            name: 'Total Node Cound',
+            value: this.bondMetrics?.standbyNodeCount
+          }
+        ],
+        [
+          {
+            name: 'Maximum Bond',
+            value: (this.bondMetrics?.bondMetrics?.standby?.maximumBond ?? 0)/10**8
+          },
+          {
+            name: 'Median Bond',
+            value: (this.bondMetrics?.bondMetrics?.standby?.medianBond ?? 0)/10**8
+          },
+          {
+            name: 'Minimum Bond',
+            value: (this.bondMetrics?.bondMetrics?.standby?.minimumBond ?? 0)/10**8
+          }
+        ]
+      ]
+    },
     networkSettings: function () {
       return [
         [
@@ -115,5 +178,6 @@ export default {
 .network-index-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 </style>

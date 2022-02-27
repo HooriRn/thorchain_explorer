@@ -13,3 +13,7 @@ export function getTxs(page=0, limit=10) {
 
   return $axiosInstace.get('/actions', { params });
 }
+
+export function getConstants() {
+  return $axiosInstace.get('thorchain/constants');
+}
