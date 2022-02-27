@@ -101,4 +101,15 @@ const runePriceQuery = gql`query runePrice {
   }
 }`
 
-export { networkQuery, volumeHistoryQuery, runePriceQuery, bondMetrics }
+const pools = gql`query {
+  pools {
+    asset
+    status,
+    volume24h,
+    poolAPY,
+    price
+  }
+}
+`
+
+export { networkQuery, volumeHistoryQuery, runePriceQuery, bondMetrics, pools }

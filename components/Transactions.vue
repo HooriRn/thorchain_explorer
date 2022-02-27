@@ -12,7 +12,7 @@
           <a v-if="tx.in[0].txID" class="tx" @click="gotoTx(tx.in[0].txID)">{{(tx.in[0].txID.slice(0,4)+'...'+tx.in[0].txID.slice(end=-4))}}</a>
           <!-- in coin -->
           <div style="margin: .5rem 0; display: flex; align-items: center;" v-if="tx.in[0].coins[0]">
-            <img class="asset-icon" :src="assetImage(tx.in[0].coins[0].asset)" alt="in-coin" @error="defaultImage">
+            <img class="asset-icon" :src="assetImage(tx.in[0].coins[0].asset)" alt="in-coin" @error="imgErr">
             <span style="line-height: 1.2rem; margin-left: .4rem">{{(tx.in[0].coins[0].amount/10**8) | number('0,0.0000')}} {{tx.in[0].coins[0].asset | shortSymbol}}</span>
           </div>
           <!-- address -->
@@ -25,7 +25,7 @@
           <a v-if="tx.out[0].txID" @click="gotoTx(tx.out[0].txID)" class="tx">{{(tx.out[0].txID.slice(0,4)+'...'+tx.out[0].txID.slice(end=-4))}}</a>
           <!-- out coin -->
           <div style="margin: .5rem 0; display: flex; align-items: center;" v-if="tx.out[0].coins[0]">
-            <img class="asset-icon" :src="assetImage(tx.out[0].coins[0].asset)" alt="out-coin" onerror="javascript:this.src='~/assets/images/unknown.png">
+            <img class="asset-icon" :src="assetImage(tx.out[0].coins[0].asset)" alt="out-coin" @error="imgErr">
             <span style="line-height: 1.2rem; margin-left: .4rem">{{(tx.out[0].coins[0].amount/10**8) | number('0,0.0000')}} {{tx.out[0].coins[0].asset | shortSymbol}}</span>
           </div>
           <!-- address -->
@@ -55,14 +55,14 @@ export default {
         return require('~/assets/images/unknown.png');
       }
     },
-    defaultImage(e) {
-      e.target.src = require('~/assets/images/unknown.png');
-    },
     gotoTx(txid) {
       this.$router.push({ path: `/tx/${txid}` })
     },
     gotoAddr(address) {
       this.$router.push({ path: `/address/${address}` })
+    },
+    imgErr(e) {
+      e.target.src = require('~/assets/images/unknown.png');
     }
   },
   filters: {
