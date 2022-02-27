@@ -17,3 +17,13 @@ export function getTxs(page=0, limit=10) {
 export function getConstants() {
   return $axiosInstace.get('thorchain/constants');
 }
+
+export function getTx(txid, limit=10) {
+  const params = {
+    offset: 0,
+    limit: limit,
+    txid
+  }
+
+  return $axiosInstace.get('/actions', {params})
+}

@@ -1,4 +1,4 @@
-import { getStats, getTxs, getConstants } from './midgard.api';
+import { getStats, getTxs, getConstants, getTx } from './midgard.api';
 import { getMimir } from './thornode.api';
 export var $axiosInstace;
 
@@ -57,7 +57,8 @@ export default function ({ $axios }, inject) {
     getStats,
     getTxs,
     getConstants,
-    getMimir
+    getMimir,
+    getTx
   }
 
   inject('api', api);
