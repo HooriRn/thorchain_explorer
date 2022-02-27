@@ -13,8 +13,8 @@
           <span>{{tx.in[0].coins[0].amount/10**8 | number('0,0.0000')}} {{tx.in[0].coins[0].asset}}</span>
         </div>
         <div class="break"></div>
-        <div class="tx-address" v-if="tx.out[0].address">
-          {{tx.out[0].address.slice(0,6)}}...{{tx.out[0].address.slice(-6)}}
+        <div class="tx-address" v-if="tx.in[0].address">
+          {{tx.in[0].address.slice(0,6)}}...{{tx.in[0].address.slice(-6)}}
         </div>
       </div>
       <div class="out-container" v-if="tx.out[0]">
@@ -71,7 +71,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .tx-container {
   .tx-header {
     font-size: 1.5rem;

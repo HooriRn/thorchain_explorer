@@ -9,7 +9,7 @@
       <div class="tx-content">
         <div class="tx-in">
           <div class="bubble">In</div>
-          <a v-if="tx.in[0].txID" class="tx">{{(tx.in[0].txID.slice(0,4)+'...'+tx.in[0].txID.slice(end=-4))}}</a>
+          <a v-if="tx.in[0].txID" class="tx" @click="gotoTx(tx.in[0].txID)">{{(tx.in[0].txID.slice(0,4)+'...'+tx.in[0].txID.slice(end=-4))}}</a>
           <!-- in coin -->
           <div style="margin: .5rem 0; display: flex; align-items: center;" v-if="tx.in[0].coins[0]">
             <img class="asset-icon" :src="assetImage(tx.in[0].coins[0].asset)" alt="in-coin" @error="defaultImage">
@@ -22,7 +22,7 @@
         <div v-if="tx.out.length > 0" class="tx-out">
           <right-arrow class="icon-arrow"></right-arrow>
           <div class="bubble">Out</div>
-          <a v-if="tx.out[0].txID" class="tx">{{(tx.out[0].txID.slice(0,4)+'...'+tx.out[0].txID.slice(end=-4))}}</a>
+          <a v-if="tx.out[0].txID" @click="gotoTx(tx.out[0].txID)" class="tx">{{(tx.out[0].txID.slice(0,4)+'...'+tx.out[0].txID.slice(end=-4))}}</a>
           <!-- out coin -->
           <div style="margin: .5rem 0; display: flex; align-items: center;" v-if="tx.out[0].coins[0]">
             <img class="asset-icon" :src="assetImage(tx.out[0].coins[0].asset)" alt="out-coin" onerror="javascript:this.src='~/assets/images/unknown.png">
@@ -57,6 +57,9 @@ export default {
     },
     defaultImage(e) {
       e.target.src = require('~/assets/images/unknown.png');
+    },
+    gotoTx(txid) {
+      this.$router.push({ path: '/tx', params: { txid } })
     }
   },
   filters: {
