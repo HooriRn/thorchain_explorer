@@ -21,8 +21,18 @@ export function getConstants() {
 export function getTx(txid, limit=10) {
   const params = {
     offset: 0,
-    limit: limit,
+    limit,
     txid
+  }
+
+  return $axiosInstace.get('/actions', {params})
+}
+
+export function getAddress(address, page=0, limit=10) {
+  const params = {
+    offset: page * limit,
+    limit,
+    address
   }
 
   return $axiosInstace.get('/actions', {params})

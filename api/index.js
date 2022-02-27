@@ -1,4 +1,4 @@
-import { getStats, getTxs, getConstants, getTx } from './midgard.api';
+import { getStats, getTxs, getConstants, getTx, getAddress } from './midgard.api';
 import { getMimir } from './thornode.api';
 export var $axiosInstace;
 
@@ -6,7 +6,7 @@ export var $axiosInstace;
 const errorInterceptor = error => {
   // check if it's a server error
   if (!error.response) {
-    notify.warn('Network/Server error');
+    console.warn('Network/Server error');
     return Promise.reject(error);
   }
 
@@ -14,18 +14,18 @@ const errorInterceptor = error => {
   switch(error.response.status) {
       case 400:
           console.error(error.response.status, error.message);
-          notify.warn('Nothing to display','Data Not Found');
+          console.warn('Nothing to display','Data Not Found');
           break;
 
       case 401: // authentication error, logout the user
-          notify.warn( 'Please login again', 'Session Expired');
+          console.warn( 'Please login again', 'Session Expired');
           localStorage.removeItem('token');
           router.push('/auth');
           break;
 
       default:
           console.error(error.response.status, error.message);
-          notify.error('Server Error');
+          console.error('Server Error');
 
   }
   return Promise.reject(error);
@@ -58,7 +58,8 @@ export default function ({ $axios }, inject) {
     getTxs,
     getConstants,
     getMimir,
-    getTx
+    getTx,
+    getAddress
   }
 
   inject('api', api);

@@ -16,7 +16,7 @@
             <span style="line-height: 1.2rem; margin-left: .4rem">{{(tx.in[0].coins[0].amount/10**8) | number('0,0.0000')}} {{tx.in[0].coins[0].asset | shortSymbol}}</span>
           </div>
           <!-- address -->
-          <div v-if="tx.in[0].address" class="address">{{tx.in[0].address.slice(0,4)+'...'+tx.in[0].address.slice(end=-4)}}</div>
+          <a v-if="tx.in[0].address" class="address" @click="gotoAddr(tx.in[0].address)">{{tx.in[0].address.slice(0,4)+'...'+tx.in[0].address.slice(end=-4)}}</a>
         </div>
         <!-- check pending status -->
         <div v-if="tx.out.length > 0" class="tx-out">
@@ -29,7 +29,7 @@
             <span style="line-height: 1.2rem; margin-left: .4rem">{{(tx.out[0].coins[0].amount/10**8) | number('0,0.0000')}} {{tx.out[0].coins[0].asset | shortSymbol}}</span>
           </div>
           <!-- address -->
-          <div v-if="tx.out[0].address" class="address">{{tx.out[0].address.slice(0,4)+'...'+tx.out[0].address.slice(end=-4)}}</div>
+          <a v-if="tx.out[0].address" class="address" @click="gotoAddr(tx.out[0].address)">{{tx.out[0].address.slice(0,4)+'...'+tx.out[0].address.slice(end=-4)}}</a>
         </div>
       </div>
     </div>
@@ -59,7 +59,10 @@ export default {
       e.target.src = require('~/assets/images/unknown.png');
     },
     gotoTx(txid) {
-      this.$router.push({ path: '/tx', params: { txid } })
+      this.$router.push({ path: `/tx/${txid}` })
+    },
+    gotoAddr(address) {
+      this.$router.push({ path: `/address/${address}` })
     }
   },
   filters: {

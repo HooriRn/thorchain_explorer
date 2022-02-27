@@ -1,12 +1,42 @@
 <template>
   <div class="search-bar-container">
-    <input class="search-bar-input" type="text" placeholder="Enter Transaction ID or Address">
+    <input class="search-bar-input" type="text" placeholder="Enter Transaction ID or Address then press ENTER" v-model="searchQuery" @keyup.enter="find()">
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SearchBar'
+  name: 'SearchBar',
+  datat() {
+    return {
+      searchQuery: '',
+    }
+  },
+  methods: {
+    find() {
+      let search = this.searchQuery.toUpperCase();
+      if (
+        //THORCHAIN
+        search.startsWith('THOR') ||
+        search.startsWith('TTHOR') ||
+        //BNB
+        search.startsWith('BNB') ||
+        search.startsWith('TBNB') ||
+        //BITCOIN
+        search.startsWith('BC1') ||
+        search.startsWith('TB1') ||
+        //LTC
+        search.startsWith('LTC') ||
+        search.startsWith('TLTC')
+      ) {
+        this.$router.push({ path: `/address/${this.searchQuery}` });
+      }
+      else {
+        // this.$api.getTx(this.searchQuery).then()
+        this.$router.push({ path: `/tx/${this.searchQuery}` })
+      }
+    }
+  }
 }
 </script>
 

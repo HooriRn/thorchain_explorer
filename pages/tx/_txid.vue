@@ -3,6 +3,7 @@
     <div class="tx-header">Transaction</div>
     <div class="tx-id">{{tx.in[0].txID}}</div>
     <div class="tx-date">{{(new Date(tx.date/10**6)).toLocaleString()}}</div>
+    <div style="margin: 1rem 0"></div>
     <div class="tx-inner-container">
       <div class="in-container">
         <div class="bubble">In</div>
@@ -13,9 +14,9 @@
           <span>{{tx.in[0].coins[0].amount/10**8 | number('0,0.0000')}} {{tx.in[0].coins[0].asset}}</span>
         </div>
         <div class="break"></div>
-        <div class="tx-address" v-if="tx.in[0].address">
+        <a class="tx-address" v-if="tx.in[0].address" @click="gotoAddress(tx.in[0].address)">
           {{tx.in[0].address.slice(0,6)}}...{{tx.in[0].address.slice(-6)}}
-        </div>
+        </a>
       </div>
       <div class="out-container" v-if="tx.out[0]">
         <div class="bubble">Out</div>
@@ -26,9 +27,9 @@
           <span>{{tx.in[0].coins[0].amount/10**8 | number('0,0.0000')}} {{tx.out[0].coins[0].asset}}</span>
         </div>
         <div class="break"></div>
-        <div class="tx-address" v-if="tx.out[0].address">
+        <a class="tx-address" v-if="tx.out[0].address" @click="gotoAddress(tx.out[0].address)">
           {{tx.out[0].address.slice(0,6)}}...{{tx.out[0].address.slice(-6)}}
-        </div>
+        </a>
       </div>
       <div class="break"></div>
       <div class="extra-details">
@@ -61,6 +62,9 @@ export default {
         console.error(error);
         return require('~/assets/images/unknown.png');
       }
+    },
+    gotoAddress(address) {
+      this.$router.push({ path: `/address/${address}`})
     }
   },
   async asyncData({params, $api}) {
@@ -139,6 +143,7 @@ export default {
     }
 
     .tx-address {
+      cursor: pointer;
       color: #63FDD9;
     }
 
