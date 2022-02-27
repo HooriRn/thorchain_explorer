@@ -21,6 +21,11 @@ const networkQuery = gql`query {
         totalBond
       }
     }
+    blockRewards {
+      blockReward
+      bondReward
+      poolReward
+    }
   }
 }
 `

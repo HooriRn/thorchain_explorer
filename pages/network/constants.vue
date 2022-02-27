@@ -1,5 +1,6 @@
 <template>
   <div class="constants-container">
+    Constants component
     <stat-table :tableSettings="networkConstants"></stat-table>
   </div>
 </template>
@@ -10,7 +11,7 @@ export default {
   components: { StatTable },
   data() {
     return {
-      networkConstans: [],
+      networkConstants: [],
     }
   }
 }
