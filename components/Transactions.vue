@@ -12,8 +12,8 @@
           <a v-if="tx.in[0].txID" class="tx">{{(tx.in[0].txID.slice(0,4)+'...'+tx.in[0].txID.slice(end=-4))}}</a>
           <!-- in coin -->
           <div style="margin: .5rem 0; display: flex; align-items: center;" v-if="tx.in[0].coins[0]">
-            <img class="asset-icon" :src="assetImage(tx.in[0].coins[0].asset)" alt="in-coin" onerror="this.onerror=null; this.src='~/assets/images/unkonwn.png">
-            <span style="line-height: 1.2rem; margin-left: .4rem">{{(tx.in[0].coins[0].amount/10**8) | number('0,0.0000')}} {{tx.in[0].coins[0].asset}}</span>
+            <img class="asset-icon" :src="assetImage(tx.in[0].coins[0].asset)" alt="in-coin" @error="defaultImage">
+            <span style="line-height: 1.2rem; margin-left: .4rem">{{(tx.in[0].coins[0].amount/10**8) | number('0,0.0000')}} {{tx.in[0].coins[0].asset | shortSymbol}}</span>
           </div>
           <!-- address -->
           <div v-if="tx.in[0].address" class="address">{{tx.in[0].address.slice(0,4)+'...'+tx.in[0].address.slice(end=-4)}}</div>
@@ -25,14 +25,13 @@
           <a v-if="tx.out[0].txID" class="tx">{{(tx.out[0].txID.slice(0,4)+'...'+tx.out[0].txID.slice(end=-4))}}</a>
           <!-- out coin -->
           <div style="margin: .5rem 0; display: flex; align-items: center;" v-if="tx.out[0].coins[0]">
-            <img class="asset-icon" :src="assetImage(tx.out[0].coins[0].asset)" alt="out-coin" onerror="this.onerror=null; this.src='~/assets/images/unkonwn.png">
-            <span style="line-height: 1.2rem; margin-left: .4rem">{{(tx.out[0].coins[0].amount/10**8) | number('0,0.0000')}} {{tx.out[0].coins[0].asset}}</span>
+            <img class="asset-icon" :src="assetImage(tx.out[0].coins[0].asset)" alt="out-coin" onerror="javascript:this.src='~/assets/images/unknown.png">
+            <span style="line-height: 1.2rem; margin-left: .4rem">{{(tx.out[0].coins[0].amount/10**8) | number('0,0.0000')}} {{tx.out[0].coins[0].asset | shortSymbol}}</span>
           </div>
           <!-- address -->
           <div v-if="tx.out[0].address" class="address">{{tx.out[0].address.slice(0,4)+'...'+tx.out[0].address.slice(end=-4)}}</div>
         </div>
       </div>
-      <!-- {{tx}} -->
     </div>
   </div>
 </template>
@@ -49,10 +48,27 @@ export default {
   methods: {
     assetImage(assetStr) {
       try {
-        return AssetImage(assetStr);
+        return AssetImage(assetStr) ?? require('~/assets/images/unknown.png');
       }
-      catch {
-        return false;
+      catch (e) {
+        console.error(e)
+        return require('~/assets/images/unknown.png');
+      }
+    },
+    defaultImage(e) {
+      e.target.src = require('~/assets/images/unknown.png');
+    }
+  },
+  filters: {
+    shortSymbol: function(assetStr) {
+      if (assetStr.includes('-')) {
+        let assetStrSplit = assetStr.split('-');
+        if (assetStrSplit[1].length > 8)
+          return assetStrSplit[0] + '-' + assetStrSplit[1].slice(0,4) + '...' + assetStrSplit[1].slice(-4);
+        else
+          return assetStr
+      } else {
+        return assetStr;
       }
     }
   }

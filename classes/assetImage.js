@@ -10,7 +10,7 @@ function _setEthIconPath(assetSymbol, assetTicker) {
 }
 
 export const AssetImage = (assetStr) => {
-  let {ticker, chain} = assetFromString(assetStr);
+  let {ticker, chain, symbol} = assetFromString(assetStr);
 
   const trustWalletMatch = CoinIconsFromTrustWallet[ticker];
 
@@ -47,7 +47,7 @@ export const AssetImage = (assetStr) => {
         break;
 
       case "ETH":
-        if (this.symbol !== "ETH") {
+        if (symbol !== "ETH") {
           // for ETH tokens
           iconPath = _setEthIconPath(symbol, ticker);
 
@@ -59,7 +59,7 @@ export const AssetImage = (assetStr) => {
           //   );
           // }
 
-          if (this.ticker === "ALCX") {
+          if (ticker === "ALCX") {
             iconPath = "https://etherscan.io/token/images/Alchemix_32.png";
           } 
           // TODO
@@ -73,6 +73,11 @@ export const AssetImage = (assetStr) => {
         iconPath =
           "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoincash/info/logo.png";
         break;
+
+      case "DOGE":
+        iconPath = 
+          "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/doge/info/logo.png"
+      break;
 
       default:
         break;

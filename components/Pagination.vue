@@ -1,18 +1,18 @@
 <template>
   <div class="pagination-container">
-    <div class="nav-icons">
+    <div class="nav-icons" @click="$emit('changePage', 0)">
       <angleDoubleLeft></angleDoubleLeft>
     </div>
-    <div class="nav-icons">
+    <div class="nav-icons" @click="$emit('changePage', page-1)">
       <angleLeft></angleLeft>
     </div>
     <div class="page">
-      Page {{ pageNumber }}
+      Page {{ pageNumber }} of {{ pageCount }}
     </div>
-    <div class="nav-icons">
+    <div class="nav-icons" @click="$emit('changePage', page+1)">
       <angleRight></angleRight>
     </div>
-    <div class="nav-icons">
+    <div class="nav-icons" @click="$emit('changePage', pageCount-1)">
       <angleDoubleRight></angleDoubleRight>
     </div>
   </div>
@@ -26,15 +26,31 @@ import angleDoubleRight from '@/assets/images/angle-double-right.svg';
 
 export default {
   name: 'Pagination',
+  props: ['page', 'pageCount'],
+  emits: {
+    changePage(payload) {
+      if (payload >= 0 && payload <= Number.parseInt(this.pageCount)) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  },
   components: {
     angleDoubleLeft,
     angleLeft,
     angleRight,
     angleDoubleRight
   },
-  data() {
-    return {
-      pageNumber: 1
+  computed: {
+    pageNumber() {
+      return (Number.parseInt(this.page) ?? 0) + 1;
+    }
+  },
+  methods: {
+    changePage() {
+
     }
   }
 }
