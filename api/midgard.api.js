@@ -5,9 +5,9 @@ export function getStats() {
   return $axiosInstace.get('/stats');
 }
 
-export function getTxs(page=0, limit=10) {
+export function getTxs(offset=0, limit=10) {
   const params = {
-    offset: page * limit,
+    offset,
     limit
   }
 
@@ -28,9 +28,9 @@ export function getTx(txid, limit=10) {
   return $axiosInstace.get('/actions', {params})
 }
 
-export function getAddress(address, page=0, limit=10) {
+export function getAddress(address, offset=0, limit=10) {
   const params = {
-    offset: page * limit,
+    offset,
     limit,
     address
   }

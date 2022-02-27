@@ -2,7 +2,7 @@
   <div class="transactions-container">
     <!-- transactions component -->
     <transactions v-if="txs && txs.actions" :txs="txs"></transactions>
-    <pagination v-if="txs && txs.actions" :page="page" :pageCount="txs.count" @changePage="getActions"></pagination>
+    <pagination v-if="txs && txs.actions" :limit="10" :offset="offset" :count="count" @changePage="getActions"></pagination>
   </div> 
 </template>
 
@@ -14,18 +14,17 @@ export default {
   data() {
     return {
       txs: undefined,
-      page: undefined
+      offset: undefined,
+      count: undefined
     }
   },
   methods: {
-    getActions(page=0) {
-      if (page < 0 || page == this.page || page > Number.parseInt(this.txs?.count)-1) {
-        return false
-      }
-      this.page = page;
-      this.$api.getTxs(page)
+    getActions(offset=0) {
+      this.offset = offset;
+      this.$api.getTxs(this.offset)
       .then(res => {
         this.txs = res.data;
+        this.count = res.data.count;
       })
       .catch(error => {
         console.error(error)

@@ -3,16 +3,16 @@
     <div class="nav-icons" @click="$emit('changePage', 0)">
       <angleDoubleLeft></angleDoubleLeft>
     </div>
-    <div class="nav-icons" @click="$emit('changePage', page-1)">
+    <div class="nav-icons" @click="$emit('changePage', offset-limit)">
       <angleLeft></angleLeft>
     </div>
     <div class="page">
-      Page {{ pageNumber }} of {{ pageCount }}
+      Page {{ Number.parseInt(offset/limit)+1 }} of {{ finalPage }}
     </div>
-    <div class="nav-icons" @click="$emit('changePage', page+1)">
+    <div class="nav-icons" @click="$emit('changePage', offset+limit)">
       <angleRight></angleRight>
     </div>
-    <div class="nav-icons" @click="$emit('changePage', pageCount-1)">
+    <div class="nav-icons" @click="$emit('changePage', finalOffset)">
       <angleDoubleRight></angleDoubleRight>
     </div>
   </div>
@@ -26,17 +26,7 @@ import angleDoubleRight from '@/assets/images/angle-double-right.svg';
 
 export default {
   name: 'Pagination',
-  props: ['page', 'pageCount'],
-  emits: {
-    changePage(payload) {
-      if (payload >= 0 && payload <= Number.parseInt(this.pageCount)) {
-        return true;
-      }
-      else {
-        return false;
-      }
-    }
-  },
+  props: ['offset', 'count', 'limit'],
   components: {
     angleDoubleLeft,
     angleLeft,
@@ -44,13 +34,11 @@ export default {
     angleDoubleRight
   },
   computed: {
-    pageNumber() {
-      return (Number.parseInt(this.page) ?? 0) + 1;
-    }
-  },
-  methods: {
-    changePage() {
-
+    finalPage: function() {
+      return Math.floor(Number.parseInt(this.count)/this.limit)+1
+    },
+    finalOffset: function() {
+      return Math.floor(Number.parseInt(this.count)/this.limit)*10
     }
   }
 }

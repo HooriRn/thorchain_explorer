@@ -4,7 +4,7 @@
     <div class="address-name">{{address}}</div>
     <div style="margin: 1rem 0"></div>
     <transactions v-if="addrTxs && addrTxs.actions" :txs="addrTxs"></transactions>
-    <pagination v-if="addrTxs && addrTxs.actions" :page="page" :pageCount="addrTxs.count" @changePage="getActions"></pagination>
+    <pagination v-if="addrTxs && addrTxs.actions && count" :limit="10" :offset="offset" :count="count" @changePage="getActions"></pagination>
   </div>
 </template>
 
@@ -12,18 +12,17 @@
 export default {
   data() {
     return {
-      page: 0,
+      offset: 0,
+      count: undefined
     }
   },
   methods: {
-    getActions(page=0) {
-      if (page < 0 || page == this.page || page > Number.parseInt(this.addrTxs?.count)-1) {
-        return false
-      }
-      this.page = page;
-      this.$api.getAddress(this.address, page)
+    getActions(offset=0) {
+      this.offset = offset;
+      this.$api.getAddress(this.address, this.offset)
       .then(res => {
         this.addrTxs = res.data;
+        this.count = res.data.count;
       })
       .catch(error => {
         console.error(error)
@@ -33,7 +32,8 @@ export default {
   async asyncData({params, $api}) {
     const address = params.adderid;
     const addrTxs = await $api.getAddress(address, 0);
-    return { address, addrTxs: addrTxs.data }
+    const count = addrTxs.data.count;
+    return { address, addrTxs: addrTxs.data, count }
   }
 }
 </script>
