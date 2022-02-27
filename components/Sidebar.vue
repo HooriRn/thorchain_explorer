@@ -75,25 +75,25 @@ export default {
           name: 'Nodes',
           unicon: 'layersUnselected',
           icon: 'layersSelected',
-          link: 'nodes'
+          link: '/nodes'
         },
         {
           name: 'Network',
           unicon: 'vectorUnselected',
           icon: 'vectorSelected',
-          link: 'network'
+          link: '/network'
         },
         {
           name: 'Transactions',
           unicon: 'exchangeUnselected',
           icon: 'exchangeSelected',
-          link: 'transactions'
+          link: '/transactions'
         },
         {
           name: 'Pools',
           unicon: 'swimmerUnselected',
           icon: 'swimmerSelected',
-          link: 'pools'
+          link: '/pools'
         }
       ]
     }
