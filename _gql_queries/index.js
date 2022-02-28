@@ -112,4 +112,67 @@ const pools = gql`query {
 }
 `
 
-export { networkQuery, volumeHistoryQuery, runePriceQuery, bondMetrics, pools }
+const poolQuery = gql`query poolQuery($asset: String!, $from: Int64!, $until: Int64!){
+  poolQuery: pool(asset: $asset) {
+    asset,
+    status,
+    price,
+    units,
+    volume24h,
+    poolAPY,
+    stakes {
+      assetStaked
+      runeStaked
+      poolStaked
+    }
+    depth {
+      assetDepth,
+      runeDepth,
+      poolDepth,
+    }
+  },
+  volumeHistory(
+    from: $from,
+    until: $until,
+    interval: HOUR,
+    pool: $asset
+  ){
+    meta{
+      combined{
+        count,
+        volumeInRune,
+        feesInRune
+      },
+      toRune{
+        count,
+        volumeInRune,
+        feesInRune
+      }
+      toAsset{
+        count,
+        volumeInRune,
+        feesInRune
+      }
+    },
+    intervals{
+      time,
+      combined{
+        count,
+        volumeInRune,
+        feesInRune
+      },
+      toRune{
+        count,
+        volumeInRune,
+        feesInRune
+      }
+      toAsset{
+        count,
+        volumeInRune,
+        feesInRune
+      }
+    }
+  }
+}`
+
+export { networkQuery, volumeHistoryQuery, runePriceQuery, bondMetrics, pools, poolQuery }
