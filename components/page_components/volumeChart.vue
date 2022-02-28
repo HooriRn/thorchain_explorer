@@ -48,9 +48,17 @@ export default {
   },
   methods: {
     getSize() {
+      if (document.querySelector('.chart .uplot')) {
+        document.querySelector('.chart .uplot').style.display = "none";
+      }
+      const chartWrapper = document.querySelector('.chart-wrapper');
+      const chartWidth = chartWrapper.offsetWidth - 36;
+      if (document.querySelector('.chart .uplot')) {
+        document.querySelector('.chart .uplot').style.display = "block";
+      }
       //TODO: change fixed width with relative size
       return {
-        width: document.body.offsetWidth - (document.getElementById('side-bar').offsetWidth + 96),
+        width: chartWidth,
         height: 340
       }
     },
