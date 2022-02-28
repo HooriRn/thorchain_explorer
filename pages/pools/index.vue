@@ -1,12 +1,12 @@
 <template>
   <div class="pools-container">
-    <div class="pool-item" v-for="(pool, idx) in pools" :key="idx">
+    <div class="pool-item" v-for="(pool, idx) in pools" :key="idx"  @click="gotoPool(pool.asset)">
       <div class="row">
         <div class="pool-chain">
           <img class="asset-chain" :src="assetImage(assetToChain(pool.asset))">
         </div>
         <div class="pool-status">{{pool.status | capitalize}}</div>
-        <div class="pool-price">{{pool.price | currency}}</div>
+        <div class="pool-price">{{pool.price*runePrice | currency}}</div>
       </div>
       <div class="row" style="align-items: center; flex-direction: column; padding: 2rem;">
         <img class="asset-icon" :src="assetImage(pool.asset)" @error="imgErr">
@@ -16,7 +16,7 @@
       <div class="row" style="justify-content: space-between; margin-top: auto;">
         <div class="detail">
           <div class="header">24H Volume</div>
-          <div class="value">{{(pool.volume24h/10**8)*Number.parseFloat(1/rune.runePrice) | number('0a')}}</div>
+          <div class="value">{{(pool.volume24h/10**8)*runePrice | number('0a')}}</div>
         </div>
         <div class="detail">
           <div class="header">Pool APY</div>
@@ -31,12 +31,18 @@
 import { assetFromString } from '@xchainjs/xchain-util';
 import { AssetImage } from '~/classes/assetImage';
 import { pools, runePriceQuery } from '~/_gql_queries';
+import { mapGetters } from 'vuex';
 
 export default {
   apollo: {
     $prefetch: false,
     pools: pools,
     rune: runePriceQuery
+  },
+  computed: {
+    ...mapGetters({
+      runePrice: 'getRunePrice'
+    })
   },
   methods: {
     assetImage(assetStr) {
@@ -55,8 +61,18 @@ export default {
       }
       return asset;
     },
+    gotoPool(pool) {
+      this.$router.push({ path: `/pool/${pool}`});
+    },
     imgErr(e) {
       e.target.src = require('~/assets/images/unknown.png');
+    }
+  },
+  watch: {
+    rune: function() {
+      if (this.rune && this.rune.runePrice) {
+        this.$store.commit('setRunePrice', (1/this.rune.runePrice))
+      }
     }
   }
 }
@@ -69,6 +85,7 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 
   .pool-item {
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     background-color: #191C1E;

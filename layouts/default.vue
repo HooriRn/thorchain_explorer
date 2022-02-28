@@ -60,5 +60,9 @@ export default {
       flex: 0 0 13.75rem;
     }
   }
+
+  #main-content {
+    flex: 1 1;
+  }
 }
 </style>
