@@ -1,15 +1,22 @@
 <template>
-  <div class="transactions-container">
-    <!-- transactions component -->
-    <transactions v-if="txs && txs.actions" :txs="txs"></transactions>
-    <pagination v-if="txs && txs.actions" :limit="10" :offset="offset" :count="count" @changePage="getActions"></pagination>
-  </div> 
+  <div class="txs-wrapper">
+    <div v-if="txs && txs.actions" class="transactions-container">
+      <!-- transactions component -->
+      <transactions :txs="txs"></transactions>
+      <pagination :limit="10" :offset="offset" :count="count" @changePage="getActions"></pagination>
+    </div>
+    <div v-else class="loading">
+      <BounceLoader color="#9F9F9F" size="3rem"/>
+    </div>
+  </div>
 </template>
 
 <script>
-import Transactions from '~/components/Transactions.vue'
+import Transactions from '~/components/Transactions.vue';
+import BounceLoader from 'vue-spinner/src/BounceLoader.vue';
+
 export default {
-  components: { Transactions },
+  components: { Transactions, BounceLoader },
   name: 'txsPage',
   data() {
     return {
@@ -38,5 +45,8 @@ export default {
 </script>
 
 <style>
-
+.loading {
+  display: flex;
+  justify-content: center;
+}
 </style>

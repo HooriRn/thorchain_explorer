@@ -9,7 +9,6 @@ export default {
   name: 'SearchBar',
   datat() {
     return {
-      searchQuery: '',
     }
   },
   methods: {
