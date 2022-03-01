@@ -1,25 +1,34 @@
 <template>
-  <div class="nodes-container">
-    <content-table
-      :table="activeNodes"
-      header="Active Nodes"
-      :stats="activeStats"
-      @gotoNode="gotoNode"
-    ></content-table>
-    <div style="height: 2rem;"></div>
-    <content-table
-      :table="standbyNodes"
-      header="Standby Nodes"
-      :stats="standbyStats"
-    ></content-table>
+  <div class="nodes-wrapper">
+    <div v-if="nodesQuery && nodesQuery.nodes" class="nodes-container">
+      <content-table
+        :table="activeNodes"
+        header="Active Nodes"
+        :stats="activeStats"
+        @gotoNode="gotoNode"
+      ></content-table>
+      <div style="height: 2rem;"></div>
+      <content-table
+        :table="standbyNodes"
+        header="Standby Nodes"
+        :stats="standbyStats"
+      ></content-table>
+    </div>
+    <div v-else class="loading">
+      <BounceLoader></BounceLoader>
+    </div>
   </div>
 </template>
 
 <script>
 import { nodesQuery } from "~/_gql_queries";
+import BounceLoader from 'vue-spinner/src/BounceLoader.vue';
 
 export default {
   name: "nodesPage",
+  components: {
+    BounceLoader
+  },
   apollo: {
     nodesQuery: {
       query: nodesQuery,
@@ -44,7 +53,7 @@ export default {
         actNodes.forEach((el) => {
           console.log(el);
           filteredNodes.push([
-            el.address.slice(0, 6) + "..." + el.address.slice(-6),
+            el.address.slice(0, 8) + "..." + el.address.slice(-8),
             el.ipAddress,
             el.version,
             el.slashPoints,
@@ -80,7 +89,7 @@ export default {
         actNodes.forEach((el) => {
           console.log(el);
           filteredNodes.push([
-            el.address.slice(0, 6) + "..." + el.address.slice(-6),
+            el.address.slice(0, 8) + "..." + el.address.slice(-8),
             el.ipAddress,
             el.version,
             el.slashPoints,
