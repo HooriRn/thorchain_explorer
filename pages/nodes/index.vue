@@ -15,7 +15,7 @@
       ></content-table>
     </div>
     <div v-else class="loading">
-      <BounceLoader></BounceLoader>
+      <BounceLoader color="#9F9F9F" size="3rem"></BounceLoader>
     </div>
   </div>
 </template>
@@ -58,7 +58,7 @@ export default {
             el.version,
             el.slashPoints,
             this.$options.filters.number(Number.parseInt(el.currentAward)/10**8, '0,0'),
-            this.$options.filters.number(Math.ceil(Number.parseInt(el.bond)/10**8), '0,0'),
+            this.$options.filters.number(Math.floor(Number.parseInt(el.bond)/10**8), '0,0'),
           ]);
           addresses.push(el.address);
         });
@@ -94,7 +94,7 @@ export default {
             el.version,
             el.slashPoints,
             this.$options.filters.number(Math.ceil(Number.parseInt(el.currentAward)/10**8), '0,0'),
-            this.$options.filters.number(Math.ceil(Number.parseInt(el.bond)/10**8), '0,0'),
+            this.$options.filters.number(Math.floor(Number.parseInt(el.bond)/10**8), '0,0'),
           ]);
           addresses.push(el.address);
         });

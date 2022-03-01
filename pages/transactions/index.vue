@@ -1,6 +1,7 @@
 <template>
   <div class="txs-wrapper">
     <div v-if="txs && txs.actions" class="transactions-container">
+      <div class="header">Transactions</div>
       <!-- transactions component -->
       <transactions :txs="txs"></transactions>
       <pagination :limit="10" :offset="offset" :count="count" @changePage="getActions"></pagination>
@@ -44,9 +45,15 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .loading {
   display: flex;
   justify-content: center;
+}
+
+.header {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #e6e6e6;
 }
 </style>
