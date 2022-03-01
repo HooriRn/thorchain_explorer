@@ -60,7 +60,7 @@ export default {
         [
           {
             name: 'Maximum Bond',
-            value: Math.floor((Number.parseInt(this.bondMetrics?.bondMetrics?.active?.maximumBond) ?? 0)/10**8)
+            value: Math.floor(Math.floor((Number.parseInt(this.bondMetrics?.bondMetrics?.active?.maximumBond) ?? 0)/10**8))
           },
           {
             name: 'Median Bond',
@@ -92,15 +92,15 @@ export default {
         [
           {
             name: 'Maximum Bond',
-            value: (this.bondMetrics?.bondMetrics?.standby?.maximumBond ?? 0)/10**8
+            value: Math.floor((Number.parseInt(this.bondMetrics?.bondMetrics?.standby?.maximumBond) ?? 0)/10**8)
           },
           {
             name: 'Median Bond',
-            value: (this.bondMetrics?.bondMetrics?.standby?.medianBond ?? 0)/10**8
+            value: Math.floor((Number.parseInt(this.bondMetrics?.bondMetrics?.standby?.medianBond) ?? 0)/10**8)
           },
           {
             name: 'Minimum Bond',
-            value: (this.bondMetrics?.bondMetrics?.standby?.minimumBond ?? 0)/10**8
+            value: Math.floor((this.bondMetrics?.bondMetrics?.standby?.minimumBond)/10**8).toString()
           }
         ]
       ]
