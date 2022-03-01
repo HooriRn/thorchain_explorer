@@ -175,4 +175,62 @@ const poolQuery = gql`query poolQuery($asset: String!, $from: Int64!, $until: In
   }
 }`
 
-export { networkQuery, volumeHistoryQuery, runePriceQuery, bondMetrics, pools, poolQuery }
+const nodesQuery = gql`query {
+  nodes{
+    address,
+    status,
+    bond,
+    ipAddress,
+    version,
+    slashPoints,
+    jail{
+      releaseHeight,
+      reason
+    },
+    currentAward
+  },
+  network{
+    bondMetrics {
+      active {
+        averageBond,
+        maximumBond,
+        medianBond,
+        minimumBond,
+        totalBond
+      },
+      standby {
+        averageBond,
+        maximumBond,
+        medianBond,
+        minimumBond,
+        totalBond
+      }
+    },
+  }
+}`
+
+const nodeQuery = gql`query nodeQuery($address: String!){
+  node(address: $address) {
+    address,
+    ipAddress,
+    version,
+    bond,
+    status,
+    slashPoints,
+    currentAward,
+    publicKeys {
+      secp256k1,
+      ed25519
+    },
+    requestedToLeave,
+    forcedToLeave,
+    leaveHeight,
+    jail {
+      nodeAddr,
+      releaseHeight,
+      reason
+    }
+  }
+}`
+
+export { networkQuery, volumeHistoryQuery, runePriceQuery, bondMetrics, pools, poolQuery, nodesQuery, nodeQuery }
