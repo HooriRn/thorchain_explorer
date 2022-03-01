@@ -37,3 +37,7 @@ export function getAddress(address, offset=0, limit=10) {
 
   return $axiosInstace.get('/actions', {params})
 }
+
+export function getPoolStats(poolName) {
+  return $axiosInstace.get(`/pool/${poolName}/stats`)
+}
