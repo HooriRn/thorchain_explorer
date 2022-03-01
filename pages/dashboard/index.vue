@@ -41,24 +41,24 @@ export default {
         [
           {
             name: 'Bonding APY',
-            value: this.stringToPercentage(this.network.bondingAPY),
+            value: this.network.bondingAPY && this.stringToPercentage(this.network.bondingAPY),
             filter: true
           },
           {
             name: 'Liquidity APY',
-            value: this.stringToPercentage(this.network.liquidityAPY),
+            value: this.network.bondingAPY && this.stringToPercentage(this.network.liquidityAPY),
             filter: true
           }
         ],
         [
           {
             name: 'Total Standby Bonded',
-            value: this.$options.filters.currency(((this.network.bondMetrics?.standby?.totalBond ?? 0) / 10**8) * 1/this.rune.runePrice) ?? 0,
+            value: this.$options.filters.currency(((this.network.bondMetrics?.standby?.totalBond ?? '-') / 10**8) * 1/this.rune.runePrice) ?? 0,
             filter: true
           },
           {
             name: 'Total Active Bonded',
-            value: this.$options.filters.currency(((this.network.bondMetrics?.active?.totalBond ?? 0) / 10**8) * 1/this.rune.runePrice) ?? 0,
+            value: this.$options.filters.currency(((this.network.bondMetrics?.active?.totalBond ?? '-') / 10**8) * 1/this.rune.runePrice) ?? 0,
             filter: true
           }
         ],
@@ -87,7 +87,7 @@ export default {
         [
           {
             name: 'Pool Share Factor',
-            value: this.stringToPercentage(this.network.poolShareFactor),
+            value: this.network.bondingAPY && this.stringToPercentage(this.network.poolShareFactor),
             filter: true
           }
         ],

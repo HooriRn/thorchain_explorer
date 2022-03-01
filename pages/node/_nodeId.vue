@@ -92,7 +92,7 @@ export default {
           },
           {
             name: "Leave Height",
-            value: this.node?.leaveHeight,
+            value: this.node?.leaveHeight?.toString(),
             filter: true,
           },
         ],
