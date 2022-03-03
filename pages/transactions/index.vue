@@ -3,7 +3,7 @@
     <div v-if="txs && txs.actions" class="transactions-container">
       <div class="header">Transactions</div>
       <!-- transactions component -->
-      <transactions :txs="txs"></transactions>
+      <transactions :txs="txs" :loading="loading"></transactions>
       <pagination :limit="10" :offset="offset" :count="count" @changePage="getActions"></pagination>
     </div>
     <div v-else class="loading">
@@ -23,11 +23,13 @@ export default {
     return {
       txs: undefined,
       offset: undefined,
-      count: undefined
+      count: undefined,
+      loading: false
     }
   },
   methods: {
     getActions(offset=0) {
+      this.loading = true;
       this.offset = offset;
       this.$api.getTxs(this.offset)
       .then(res => {
@@ -36,6 +38,9 @@ export default {
       })
       .catch(error => {
         console.error(error)
+      })
+      .finally(() => {
+        this.loading = false;
       })
     }
   },

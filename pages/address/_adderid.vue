@@ -3,7 +3,7 @@
     <div class="address-header">Address</div>
     <div class="address-name">{{address}}</div>
     <div style="margin: 1rem 0"></div>
-    <transactions v-if="addrTxs && addrTxs.actions" :txs="addrTxs"></transactions>
+    <transactions v-if="addrTxs && addrTxs.actions" :txs="addrTxs" :loading="loading"></transactions>
     <pagination v-if="addrTxs && addrTxs.actions && count" :limit="10" :offset="offset" :count="count" @changePage="getActions"></pagination>
   </div>
 </template>
@@ -13,11 +13,13 @@ export default {
   data() {
     return {
       offset: 0,
-      count: undefined
+      count: undefined,
+      loading: false
     }
   },
   methods: {
     getActions(offset=0) {
+      this.loading = true;
       this.offset = offset;
       this.$api.getAddress(this.address, this.offset)
       .then(res => {
@@ -26,6 +28,9 @@ export default {
       })
       .catch(error => {
         console.error(error)
+      })
+      .finally(() => {
+        this.loading = false;
       })
     }
   },
