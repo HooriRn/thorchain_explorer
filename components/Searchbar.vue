@@ -38,7 +38,12 @@ export default {
         this.$router.push({ path: `/tx/${this.searchQuery}` })
       }
     }
-  }
+  },
+  watch:{
+    $route (to, from){
+      this.searchQuery = '';
+    }
+} 
 }
 </script>
 
