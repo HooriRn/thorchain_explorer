@@ -27,7 +27,9 @@ export default {
         search.startsWith('TB1') ||
         //LTC
         search.startsWith('LTC') ||
-        search.startsWith('TLTC')
+        search.startsWith('TLTC') ||
+        //ETH
+        search.startsWith('0X')
       ) {
         this.$router.push({ path: `/address/${this.searchQuery}` });
       }
