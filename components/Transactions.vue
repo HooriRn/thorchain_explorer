@@ -1,36 +1,43 @@
 <template>
   <div class="txs-component-container">
-    <div class="tx-container" v-for="(tx, idx) in txs.actions" :key="idx">
-      <div class="tx-header">
-        <div class="action">{{tx.type | capitalize }}</div>
-        <div class="date">{{ (new Date(tx.date/10**6)).toLocaleDateString() }}</div>
-        <div class="time">{{ (new Date(tx.date/10**6)).toLocaleTimeString() }}</div>
+    <template v-if="txs.actions && txs.actions.length > 0">
+      <div class="tx-container" v-for="(tx, idx) in txs.actions" :key="idx">
+        <div class="tx-header">
+          <div class="action">{{tx.type | capitalize }}</div>
+          <div class="date">{{ (new Date(tx.date/10**6)).toLocaleDateString() }}</div>
+          <div class="time">{{ (new Date(tx.date/10**6)).toLocaleTimeString() }}</div>
+        </div>
+        <div class="tx-content">
+          <div class="tx-in">
+            <div class="bubble">In</div>
+            <a v-if="tx.in[0].txID" class="tx" @click="gotoTx(tx.in[0].txID)">{{(tx.in[0].txID.slice(0,4)+'...'+tx.in[0].txID.slice(end=-4))}}</a>
+            <!-- in coin -->
+            <div style="margin: .5rem 0; display: flex; align-items: center;" v-if="tx.in[0].coins[0]">
+              <img class="asset-icon" :src="assetImage(tx.in[0].coins[0].asset)" alt="in-coin" @error="imgErr">
+              <span style="line-height: 1.2rem; margin-left: .4rem">{{(tx.in[0].coins[0].amount/10**8) | number('0,0.0000')}} {{tx.in[0].coins[0].asset | shortSymbol}}</span>
+            </div>
+            <!-- address -->
+            <a v-if="tx.in[0].address" class="address" @click="gotoAddr(tx.in[0].address)">{{tx.in[0].address.slice(0,4)+'...'+tx.in[0].address.slice(end=-4)}}</a>
+          </div>
+          <!-- check pending status -->
+          <div v-if="tx.out.length > 0" class="tx-out">
+            <right-arrow class="icon-arrow"></right-arrow>
+            <div class="bubble">Out</div>
+            <a v-if="tx.out[0].txID" @click="gotoTx(tx.out[0].txID)" class="tx">{{(tx.out[0].txID.slice(0,4)+'...'+tx.out[0].txID.slice(end=-4))}}</a>
+            <!-- out coin -->
+            <div style="margin: .5rem 0; display: flex; align-items: center;" v-if="tx.out[0].coins[0]">
+              <img class="asset-icon" :src="assetImage(tx.out[0].coins[0].asset)" alt="out-coin" @error="imgErr">
+              <span style="line-height: 1.2rem; margin-left: .4rem">{{(tx.out[0].coins[0].amount/10**8) | number('0,0.0000')}} {{tx.out[0].coins[0].asset | shortSymbol}}</span>
+            </div>
+            <!-- address -->
+            <a v-if="tx.out[0].address" class="address" @click="gotoAddr(tx.out[0].address)">{{tx.out[0].address.slice(0,4)+'...'+tx.out[0].address.slice(end=-4)}}</a>
+          </div>
+        </div>
       </div>
-      <div class="tx-content">
-        <div class="tx-in">
-          <div class="bubble">In</div>
-          <a v-if="tx.in[0].txID" class="tx" @click="gotoTx(tx.in[0].txID)">{{(tx.in[0].txID.slice(0,4)+'...'+tx.in[0].txID.slice(end=-4))}}</a>
-          <!-- in coin -->
-          <div style="margin: .5rem 0; display: flex; align-items: center;" v-if="tx.in[0].coins[0]">
-            <img class="asset-icon" :src="assetImage(tx.in[0].coins[0].asset)" alt="in-coin" @error="imgErr">
-            <span style="line-height: 1.2rem; margin-left: .4rem">{{(tx.in[0].coins[0].amount/10**8) | number('0,0.0000')}} {{tx.in[0].coins[0].asset | shortSymbol}}</span>
-          </div>
-          <!-- address -->
-          <a v-if="tx.in[0].address" class="address" @click="gotoAddr(tx.in[0].address)">{{tx.in[0].address.slice(0,4)+'...'+tx.in[0].address.slice(end=-4)}}</a>
-        </div>
-        <!-- check pending status -->
-        <div v-if="tx.out.length > 0" class="tx-out">
-          <right-arrow class="icon-arrow"></right-arrow>
-          <div class="bubble">Out</div>
-          <a v-if="tx.out[0].txID" @click="gotoTx(tx.out[0].txID)" class="tx">{{(tx.out[0].txID.slice(0,4)+'...'+tx.out[0].txID.slice(end=-4))}}</a>
-          <!-- out coin -->
-          <div style="margin: .5rem 0; display: flex; align-items: center;" v-if="tx.out[0].coins[0]">
-            <img class="asset-icon" :src="assetImage(tx.out[0].coins[0].asset)" alt="out-coin" @error="imgErr">
-            <span style="line-height: 1.2rem; margin-left: .4rem">{{(tx.out[0].coins[0].amount/10**8) | number('0,0.0000')}} {{tx.out[0].coins[0].asset | shortSymbol}}</span>
-          </div>
-          <!-- address -->
-          <a v-if="tx.out[0].address" class="address" @click="gotoAddr(tx.out[0].address)">{{tx.out[0].address.slice(0,4)+'...'+tx.out[0].address.slice(end=-4)}}</a>
-        </div>
+    </template>
+    <div v-else>
+      <div class="no-tx">
+        <span>No transaction has been found in Midgard</span>
       </div>
     </div>
   </div>
@@ -88,6 +95,10 @@ export default {
   border-radius: .5rem;
   background-color: #191C1E;
   border: 1px solid #263238;
+
+  .no-tx {
+    padding: 1rem;
+  }
 
   .tx-container {
     display: flex;

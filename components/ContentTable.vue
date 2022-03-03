@@ -56,16 +56,22 @@ export default {
       color: #e6e6e6;
     }
 
-    tbody tr td {
-      cursor: pointer;
-      padding: 1rem;
-      color: #e6e6e6;
-      border: 1px solid #263238;
-      border-width: 1px 0 1px 0;
-    }
-    
-    tbody tr:last-of-type td {
-      border: none;
+    tbody tr {
+      &:hover {
+        background-color: #161819;  
+      }
+
+      td {
+        cursor: pointer;
+        padding: 1rem;
+        color: #e6e6e6;
+        border: 1px solid #263238;
+        border-width: 1px 0 1px 0;
+      }
+
+      &:last-of-type td {
+        border: none;
+      }
     }
   }
 }

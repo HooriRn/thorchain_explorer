@@ -12,6 +12,7 @@
         :table="standbyNodes"
         header="Standby Nodes"
         :stats="standbyStats"
+        @gotoNode="gotoNode"
       ></content-table>
     </div>
     <div v-else class="loading">
