@@ -15,7 +15,6 @@ export default {
   },
   mounted() {
     this.$api.getConstants().then(res => {
-      console.log(res.data.int_64_values);
       this.networkConst = res.data;
     }).catch(e => {
       console.error(e);

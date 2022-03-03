@@ -84,7 +84,6 @@ export default {
       let dc = uPlot.fmtDate('{h}{AA} {YYYY}/{MM}/{DD}')
       let vals = [u.data[0][idx], u.data[1][idx], u.data[2][idx], u.data[3][idx]]
       vals.forEach((v, id) => {
-        // console.log(u.series[id]._stroke)
         let d = document.createElement('div');
         d.classList.add('legend-item');
         if (id == 0) {

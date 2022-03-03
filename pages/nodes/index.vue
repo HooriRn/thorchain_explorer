@@ -52,7 +52,6 @@ export default {
         let addresses = [];
         let filteredNodes = [];
         actNodes.forEach((el) => {
-          console.log(el);
           filteredNodes.push([
             el.address.slice(0, 8) + "..." + el.address.slice(-8),
             el.ipAddress,
@@ -88,7 +87,6 @@ export default {
         let addresses = [];
         let filteredNodes = [];
         actNodes.forEach((el) => {
-          console.log(el);
           filteredNodes.push([
             el.address.slice(0, 8) + "..." + el.address.slice(-8),
             el.ipAddress,

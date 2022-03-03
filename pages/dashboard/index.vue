@@ -230,7 +230,7 @@ export default {
     this.$api.getStats()
     .then(res => this.stats = res.data)
     .catch(error => {
-      console.log(error)
+      console.error(error)
     })
   },
   watch: {
