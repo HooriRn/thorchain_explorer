@@ -7,8 +7,9 @@
 <script>
 export default {
   name: 'SearchBar',
-  datat() {
+  data() {
     return {
+      searchQuery: ''
     }
   },
   methods: {
