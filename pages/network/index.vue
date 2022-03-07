@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {bondMetrics, networkQuery, runePriceQuery} from '~/_gql_queries'
+import {bondMetrics, networkQuery} from '~/_gql_queries'
 import StatTable from "~/components/StatTable.vue";
 
 export default {
@@ -24,21 +24,10 @@ export default {
       rune: [],
     };
   },
-  //This could be mixin
-  watch: {
-    rune: function() {
-      if (this.rune && this.rune.runePrice) {
-        this.$store.commit('setRunePrice', (1/this.rune.runePrice))
-      }
-    }
-  },
   apollo: {
     $prefetch: false,
     network: networkQuery,
     bondMetrics: bondMetrics,
-    rune: {
-      query: runePriceQuery,
-    },
   },
   computed: {
     topActiveBonds: function() {

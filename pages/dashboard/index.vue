@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {networkQuery, runePriceQuery, volumeHistoryQuery} from '~/_gql_queries'
+import {networkQuery, volumeHistoryQuery} from '~/_gql_queries'
 
 export default {
   components: { 
@@ -211,9 +211,6 @@ export default {
   apollo: {
     $prefetch: false,
     network: networkQuery,
-    rune: {
-      query: runePriceQuery,
-    },
     volumeHistoryQuery: {
       query: volumeHistoryQuery,
       update: data => data.volumeHistory,
@@ -232,13 +229,6 @@ export default {
     .catch(error => {
       console.error(error)
     })
-  },
-  watch: {
-    rune: function() {
-      if (this.rune && this.rune.runePrice) {
-        this.$store.commit('setRunePrice', (1/this.rune.runePrice))
-      }
-    }
   }
 };
 </script>

@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { poolQuery, runePriceQuery } from "~/_gql_queries";
+import { poolQuery } from "~/_gql_queries";
 import BounceLoader from "vue-spinner/src/BounceLoader.vue";
 import { AssetImage } from "~/classes/assetImage";
 import { assetFromString } from "@xchainjs/xchain-util";
@@ -227,7 +227,6 @@ export default {
   },
   apollo: {
     $prefetch: false,
-    rune: runePriceQuery,
     pool: {
       query: poolQuery,
       update(data) {
@@ -240,13 +239,6 @@ export default {
 
         return { until, from, asset: this.poolName };
       },
-    },
-  },
-  watch: {
-    rune: function () {
-      if (this.rune && this.rune.runePrice) {
-        this.$store.commit("setRunePrice", 1 / this.rune.runePrice);
-      }
     },
   },
 };

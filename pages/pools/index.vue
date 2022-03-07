@@ -35,7 +35,7 @@
 <script>
 import { assetFromString } from '@xchainjs/xchain-util';
 import { AssetImage } from '~/classes/assetImage';
-import { pools, runePriceQuery } from '~/_gql_queries';
+import { pools } from '~/_gql_queries';
 import { mapGetters } from 'vuex';
 import BounceLoader from 'vue-spinner/src/BounceLoader.vue';
 
@@ -43,7 +43,6 @@ export default {
   apollo: {
     $prefetch: false,
     pools: pools,
-    rune: runePriceQuery
   },
   components: {
     BounceLoader
@@ -75,13 +74,6 @@ export default {
     },
     imgErr(e) {
       e.target.src = require('~/assets/images/unknown.png');
-    }
-  },
-  watch: {
-    rune: function() {
-      if (this.rune && this.rune.runePrice) {
-        this.$store.commit('setRunePrice', (1/this.rune.runePrice))
-      }
     }
   }
 }

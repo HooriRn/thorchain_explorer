@@ -42,7 +42,15 @@ export default {
     window.addEventListener('resize', () => {
       this.resizedWindow();
     });
-  }
+
+    this.$api.getStats()
+    .then(res => {
+      this.$store.commit('setRunePrice', Number.parseFloat(res.data.runePriceUSD))
+    })
+    .catch(error => {
+      console.error(error)
+    })
+  },
 }
 </script>
 
