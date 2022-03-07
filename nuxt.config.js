@@ -83,7 +83,7 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: 'https://midgard.thorchain.info/v2',
+        httpEndpoint: process.env.MIDGARD_BASE_URL,
       }
     }
   }
