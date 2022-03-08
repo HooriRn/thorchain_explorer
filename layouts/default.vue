@@ -78,13 +78,17 @@ export default {
     flex-direction: column-reverse;
     margin-bottom: 4rem;
 
+    #right-content {
+      padding: .7rem;
+    }
+
     #side-bar {
       z-index: 1000;
       position: fixed;
       bottom: 0;
       width: 100%;
       background-color: $bgSidebar;
-      padding: 1rem;
+      padding: .5rem;
       background-color: rgba(17,19,20, 0.85); /* Black w/opacity/see-through */
       backdrop-filter: blur(10px);
       border-top: 1.5px solid #263238;
