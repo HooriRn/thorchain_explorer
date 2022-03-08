@@ -3,11 +3,13 @@
     <div style="width: 100%">
       <stat-table :tableSettings="networkSettings" header="Network Overview"></stat-table>
     </div>
-    <div style="width: calc(50% - 1rem)">
-      <stat-table :tableSettings="topActiveBonds" header="Top Active Bonds"></stat-table>
-    </div>
-    <div style="width: calc(50% - 1rem)">
-      <stat-table :tableSettings="topStandbyBonds" header="Top Standby Bonds"></stat-table>
+    <div class="grid-network">
+      <div>
+        <stat-table :tableSettings="topActiveBonds" header="Top Active Bonds"></stat-table>
+      </div>
+      <div>
+        <stat-table :tableSettings="topStandbyBonds" header="Top Standby Bonds"></stat-table>
+      </div>
     </div>
   </div>
 </template>
@@ -163,10 +165,18 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .network-index-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.grid-network {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-gap: .5rem;
+  gap: .5rem;
 }
 </style>

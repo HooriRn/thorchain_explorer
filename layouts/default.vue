@@ -1,5 +1,5 @@
 <template>
-  <main id="default-layout">
+  <main id="default-layout" :class="{'mini': mini}">
     <!-- Sidebar -->
     <div id="side-bar">
       <sidebar :mini="mini" />
@@ -71,6 +71,29 @@ export default {
 
   #main-content {
     flex: 1 1;
+  }
+
+  &.mini {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-bottom: 4rem;
+
+    #side-bar {
+      z-index: 1000;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: $bgSidebar;
+      padding: 1rem;
+      background-color: rgba(17,19,20, 0.85); /* Black w/opacity/see-through */
+      backdrop-filter: blur(10px);
+      border-top: 1.5px solid #263238;
+
+      @include lg {
+        display: block;
+        flex: 0 0 13.75rem;
+      }
+    }
   }
 }
 </style>

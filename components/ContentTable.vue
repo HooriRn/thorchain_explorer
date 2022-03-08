@@ -41,6 +41,7 @@ export default {
   border-radius: .5rem;
   background-color: #191C1E;
   border: 1px solid #263238;
+  overflow: auto;
 
   .header {
     color: #e6e6e6;

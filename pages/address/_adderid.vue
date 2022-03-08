@@ -95,9 +95,6 @@ export default {
         console.error('Could not copy text: ', err);
       });
     },
-    qr() {
-
-    }
   },
   async asyncData({params, $api}) {
     const address = params.adderid;

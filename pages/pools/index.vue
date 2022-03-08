@@ -93,7 +93,7 @@ export default {
 .pools-container {
   display: grid;
   grid-gap: .5rem;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
 
   .pool-item {
     cursor: pointer;

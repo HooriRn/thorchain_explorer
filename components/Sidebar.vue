@@ -1,6 +1,6 @@
 <template>
   <div class="side-bar-container" :class="{'mini': mini? true:false}">
-      <img class="logo" src="@/assets/images/thorchain.png" alt="">
+      <img v-if="!mini" class="logo" src="@/assets/images/thorchain.png" alt="">
       <div class="side-bar-lists">
         <template v-for="(item, index) in sidebarLists" >
           <NuxtLink :to="item.link" :class="['side-bar-item']" :key="index">
@@ -108,14 +108,28 @@ export default {
   min-height: 100%;
 
   &.mini {
+    flex-direction: row;
     align-items: center;
+
+    .logo {
+      margin-bottom: 0;
+    }
 
     .sidebar-text {
       display: none;
     }
 
-    .side-bar-item .icon {
-      margin: 0;
+    .side-bar-item {
+      justify-content: center;
+      .icon {
+        margin: 0;
+      }
+    }
+
+    .side-bar-lists {
+      flex: 1;
+      justify-content: space-around;
+      flex-direction: row;
     }
   }
 

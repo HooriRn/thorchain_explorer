@@ -117,6 +117,7 @@ export default {
     flex: 1 1 100%;
     padding: 1rem;
     border-bottom: 1px solid #263238;
+    overflow: auto;
 
     &:last-of-type {
       border-bottom: none;
