@@ -1,6 +1,6 @@
 <template>
   <div class="stat-table">
-    <div class="stat-header">
+    <div v-if="header" class="stat-header">
       <div class="stat-header-text">{{ header }}</div>
       <button v-if="false" class="stat-header-btn"></button>
     </div>

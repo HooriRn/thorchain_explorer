@@ -1,7 +1,10 @@
 // axios instance
-import { $axiosInstace } from './index';
-const thornodeBaseUrl = process.env.THORNODE_URL; 
+import { $axiosInstace, THORNODE_URL } from './index';
 
 export function getMimir() {
-  return $axiosInstace.get(thornodeBaseUrl + '/mimir');
+  return $axiosInstace.get(THORNODE_URL + '/mimir');
+}
+
+export function getBalance(address) {
+  return $axiosInstace.get(THORNODE_URL + `/bank/balances/${address}`);
 }

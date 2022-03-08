@@ -1,6 +1,6 @@
 import { getStats, getTxs, getConstants, getTx, getAddress, getPoolStats, getPoolTxs } from './midgard.api';
-import { getMimir } from './thornode.api';
-export var $axiosInstace;
+import { getMimir, getBalance } from './thornode.api';
+export var $axiosInstace, THORNODE_URL;
 
 // interceptor to catch errors
 const errorInterceptor = error => {
@@ -52,6 +52,7 @@ export default function ({ $axios }, inject) {
 
   //defining the inner Vue axios instace to the outer scope
   $axiosInstace = $axios;
+  THORNODE_URL = process.env.THORNODE_URL;
 
   let api = {
     getStats,
@@ -61,7 +62,8 @@ export default function ({ $axios }, inject) {
     getTx,
     getAddress,
     getPoolStats,
-    getPoolTxs
+    getPoolTxs,
+    getBalance
   }
 
   inject('api', api);

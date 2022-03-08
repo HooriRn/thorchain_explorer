@@ -79,6 +79,11 @@ export default {
       ]
   },
 
+  env: {
+    THORNODE_URL:
+      process.env.THORNODE_URL = 'https://thornode.ninerealms.com'
+  },
+
   // Graphql appollo configure
   apollo: {
     clientConfigs: {
