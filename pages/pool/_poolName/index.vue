@@ -9,7 +9,7 @@
           <div class="item">
             <div class="header">Asset Price</div>
             <div class="value">
-              {{ (Number.parseFloat(pool.poolQuery.price) * (1 / rune.runePrice)) | currency }}
+              {{ (Number.parseFloat(pool.poolQuery.price) * runePrice) | currency }}
             </div>
           </div>
           <div class="item">
@@ -62,6 +62,7 @@ import { poolQuery } from "~/_gql_queries";
 import BounceLoader from "vue-spinner/src/BounceLoader.vue";
 import { AssetImage } from "~/classes/assetImage";
 import { assetFromString } from "@xchainjs/xchain-util";
+import { mapGetters } from 'vuex';
 
 export default {
   async asyncData({ params }) {
@@ -87,6 +88,11 @@ export default {
       const { chain, ticker } = assetFromString(assetStr);
       return `${chain}.${ticker}`;
     },
+  },
+  computed: {
+    ...mapGetters({
+      runePrice: 'getRunePrice'
+    })
   },
   mounted() {
     this.$api
