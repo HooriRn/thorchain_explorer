@@ -47,13 +47,13 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxtjs/style-resources',
+    '@nuxtjs/dotenv',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv',
     '@nuxtjs/apollo',
   ],
 
@@ -91,5 +91,10 @@ export default {
         httpEndpoint: process.env.MIDGARD_BASE_URL,
       }
     }
+  },
+
+  env: {
+    MIDGARD_BASE_URL: process.env.MIDGARD_BASE_URL,
+    THORNODE_URL: process.env.THORNODE_URL,
   }
 }
