@@ -65,7 +65,8 @@ export default {
             name: 'Transactions',
             value: this.count
           }
-        ]
+        ],
+        [...this.otherBalances]
       ]
     }
   },
@@ -100,16 +101,30 @@ export default {
     const address = params.adderid;
     const addrTxs = await $api.getAddress(address, 0);
     const count = addrTxs.data.count;
-    let balance = undefined;
+    let balance = 0;
+    let otherBalances = undefined;
     // TODO: change with regex
     if (address.toUpperCase().includes('THOR')) {
-      const balances = (await $api.getBalance(address)).data.result;
+      let balances = (await $api.getBalance(address)).data.result;
       const index = balances.findIndex(object => {
         return object.denom === 'rune';
       });
-      balance = Number.parseFloat(balances[index].amount)/10**8;
+
+      if (index !== -1) {
+        balance = Number.parseFloat(balances[index]?.amount)/10**8 ?? 0;
+        balances.splice(index, 1);
+      }
+
+      otherBalances = balances.map(item => {
+        return {
+          name: 'Synth ' + item.denom.toUpperCase(),
+          value: (item?.amount/10**8).toFixed(8),
+          filter: true
+        }
+      })
     }
-    return { address, addrTxs: addrTxs.data, count, balance }
+
+    return { address, addrTxs: addrTxs.data, count, balance, otherBalances }
   },
   async mounted() {
   }
