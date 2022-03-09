@@ -54,7 +54,7 @@ export default {
   },
   computed: {
     addressStat: function() {
-      return [
+      let balances = [
         [
           {
             name: 'RUNE Balance',
@@ -65,9 +65,10 @@ export default {
             name: 'Transactions',
             value: this.count
           }
-        ],
-        [...this.otherBalances]
+        ]
       ]
+
+      return balances.push(this.otherBalances);
     }
   },
   methods: {
@@ -102,26 +103,31 @@ export default {
     const addrTxs = await $api.getAddress(address, 0);
     const count = addrTxs.data.count;
     let balance = 0;
-    let otherBalances = undefined;
+    let otherBalances = [];
     // TODO: change with regex
     if (address.toUpperCase().includes('THOR')) {
-      let balances = (await $api.getBalance(address)).data.result;
-      const index = balances.findIndex(object => {
+      try {
+        let balances = (await $api.getBalance(address)).data.result;
+        const index = balances.findIndex(object => {
         return object.denom === 'rune';
-      });
+        });
 
-      if (index !== -1) {
-        balance = Number.parseFloat(balances[index]?.amount)/10**8 ?? 0;
-        balances.splice(index, 1);
-      }
-
-      otherBalances = balances.map(item => {
-        return {
-          name: 'Synth ' + item.denom.toUpperCase(),
-          value: (item?.amount/10**8).toFixed(8),
-          filter: true
+        if (index !== -1) {
+          balance = Number.parseFloat(balances[index]?.amount)/10**8 ?? 0;
+          balances.splice(index, 1);
         }
-      })
+
+        otherBalances = balances.map(item => {
+          return {
+            name: 'Synth ' + item.denom.toUpperCase(),
+            value: (item?.amount/10**8).toFixed(8),
+            filter: true
+          }
+        })
+      }
+      catch(e) {
+        console.warn('can\'t get the balances');
+      }
     }
 
     return { address, addrTxs: addrTxs.data, count, balance, otherBalances }

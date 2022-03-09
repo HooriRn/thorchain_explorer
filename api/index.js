@@ -19,8 +19,14 @@ const errorInterceptor = error => {
 
       case 401: // authentication error, logout the user
           console.warn( 'Please login again', 'Session Expired');
-          localStorage.removeItem('token');
-          router.push('/auth');
+          break;
+
+      case 429: // too many requests
+          console.warn( 'Too many requests, Try again');
+          break;
+
+      case 501: // Wrong request
+          console.warn( 'Wrong Request');
           break;
 
       default:
@@ -44,8 +50,6 @@ const responseInterceptor = response => {
 
   return response;
 }
-
-
 
 export default function ({ $axios }, inject) {
   $axios.interceptors.response.use(responseInterceptor, errorInterceptor);
