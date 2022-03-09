@@ -79,6 +79,12 @@ export const AssetImage = (assetStr) => {
           "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/doge/info/logo.png"
       break;
 
+      case "TERRA":
+        if (ticker === 'TERRA' || ticker === 'LUNA')
+          iconPath = 
+            "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/terra/info/logo.png"
+      break;
+
       default:
         break;
     }
