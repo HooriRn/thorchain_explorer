@@ -54,7 +54,8 @@ export default {
   },
   computed: {
     addressStat: function() {
-      let balances = [
+      let otherBalances = this.otherBalances ?? [];
+      return [
         [
           {
             name: 'RUNE Balance',
@@ -65,10 +66,9 @@ export default {
             name: 'Transactions',
             value: this.count
           }
-        ]
+        ],
+        ...otherBalances
       ]
-
-      return balances.push(this.otherBalances);
     }
   },
   methods: {
@@ -118,11 +118,11 @@ export default {
         }
 
         otherBalances = balances.map(item => {
-          return {
+          return [{
             name: 'Synth ' + item.denom.toUpperCase(),
             value: (item?.amount/10**8).toFixed(8),
             filter: true
-          }
+          }]
         })
       }
       catch(e) {
