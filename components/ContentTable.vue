@@ -10,20 +10,22 @@
         </div>
       </dir>
     </div>
-    <table v-if="table">
-      <thead>
-        <tr align="left">
-          <th v-for="(h, idx) in table.header" :key="idx">{{h}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(t, idx) in table.content" :key="idx" @click="$emit('gotoNode', table.addresses[idx])">
-          <td v-for="(item, i) in t" :key="idx+'t'+i">
-            {{item}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table">
+      <table v-if="table">
+        <thead>
+          <tr align="left">
+            <th v-for="(h, idx) in table.header" :key="idx">{{h}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(t, idx) in table.content" :key="idx" @click="$emit('gotoNode', table.addresses[idx])">
+            <td v-for="(item, i) in t" :key="idx+'t'+i">
+              {{item}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -41,7 +43,6 @@ export default {
   border-radius: .5rem;
   background-color: #191C1E;
   border: 1px solid #263238;
-  overflow: auto;
 
   .header {
     color: #e6e6e6;
@@ -49,7 +50,12 @@ export default {
     padding: 1rem;
   }
 
+  .table {
+    overflow: auto;
+  }
+
   table {
+    width: 100%;
     border-collapse: collapse;
 
     thead tr th {

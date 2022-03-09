@@ -19,6 +19,7 @@ export default {
         //THORCHAIN
         search.startsWith('THOR') ||
         search.startsWith('TTHOR') ||
+        search.startsWith('STHOR') ||
         //BNB
         search.startsWith('BNB') ||
         search.startsWith('TBNB') ||

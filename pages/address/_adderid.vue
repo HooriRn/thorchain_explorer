@@ -57,7 +57,7 @@ export default {
       return [
         [
           {
-            name: 'Balance',
+            name: 'RUNE Balance',
             value: this.balance && this.$options.filters.number(this.balance, '0,0.00'),
             filter: true,
           },
@@ -101,8 +101,14 @@ export default {
     const addrTxs = await $api.getAddress(address, 0);
     const count = addrTxs.data.count;
     let balance = undefined;
-    if (address.toUpperCase().includes('THOR'))
-      balance = Number.parseFloat((await $api.getBalance(address)).data.result[0].amount)/10**8
+    // TODO: change with regex
+    if (address.toUpperCase().includes('THOR')) {
+      const balances = (await $api.getBalance(address)).data.result;
+      const index = balances.findIndex(object => {
+        return object.denom === 'rune';
+      });
+      balance = Number.parseFloat(balances[index].amount)/10**8;
+    }
     return { address, addrTxs: addrTxs.data, count, balance }
   },
   async mounted() {

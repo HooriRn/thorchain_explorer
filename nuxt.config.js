@@ -17,7 +17,7 @@ export default {
   },
 
   loading: {
-    color: '#e6e6e6',
+    color: '#63FDD9',
     height: '4px'
   },
 
@@ -53,6 +53,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/dotenv',
     '@nuxtjs/apollo',
   ],
 
@@ -82,11 +83,6 @@ export default {
       './assets/styles/_colors.scss',
       '@/assets/styles/_breakpoints.scss'
       ]
-  },
-
-  env: {
-    THORNODE_URL:
-      process.env.THORNODE_URL = 'https://thornode.ninerealms.com'
   },
 
   // Graphql appollo configure
