@@ -118,5 +118,13 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.nodes-wrapper {
+  display: flex;
+  justify-content: center;
+
+  .nodes-container {
+    flex: 1 0;
+  }
+}
 </style>
