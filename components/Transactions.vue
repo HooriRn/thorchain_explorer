@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import rightArrow from '~/assets/images/arrow-small-right.svg';
+import rightArrow from '~/assets/images/arrow-small-right.svg?inline';
 import { AssetImage } from '~/classes/assetImage';
 import BounceLoader from "vue-spinner/src/BounceLoader.vue";
 

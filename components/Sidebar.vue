@@ -25,24 +25,24 @@
 </template>
 
 <script>
-import TwitterLogo from '~/assets/images/twitter-brands.svg';
-import DiscordLogo from '~/assets/images/discord-brands.svg';
-import GithubLogo from '~/assets/images/github-brands.svg';
+import TwitterLogo from '~/assets/images/twitter-brands.svg?inline';
+import DiscordLogo from '~/assets/images/discord-brands.svg?inline';
+import GithubLogo from '~/assets/images/github-brands.svg?inline';
 
-import appsSelected from '~/assets/images/apps-selected.svg';
-import appsUnselected from '~/assets/images/apps-unselected.svg';
+import appsSelected from '~/assets/images/apps-selected.svg?inline';
+import appsUnselected from '~/assets/images/apps-unselected.svg?inline';
 
-import vectorSelected from '~/assets/images/vector-selected.svg';
-import vectorUnselected from '~/assets/images/vector-unselected.svg';
+import vectorSelected from '~/assets/images/vector-selected.svg?inline';
+import vectorUnselected from '~/assets/images/vector-unselected.svg?inline';
 
-import layersSelected from '~/assets/images/layers-selected.svg';
-import layersUnselected from '~/assets/images/layers-unselected.svg';
+import layersSelected from '~/assets/images/layers-selected.svg?inline';
+import layersUnselected from '~/assets/images/layers-unselected.svg?inline';
 
-import exchangeSelected from '~/assets/images/exchange-selected.svg';
-import exchangeUnselected from '~/assets/images/exchange-unselected.svg';
+import exchangeSelected from '~/assets/images/exchange-selected.svg?inline';
+import exchangeUnselected from '~/assets/images/exchange-unselected.svg?inline';
 
-import swimmerSelected from '~/assets/images/swimmer-selected.svg';
-import swimmerUnselected from '~/assets/images/swimmer-unselected.svg';
+import swimmerSelected from '~/assets/images/swimmer-selected.svg?inline';
+import swimmerUnselected from '~/assets/images/swimmer-unselected.svg?inline';
 
 export default {
   name: 'SideBar',

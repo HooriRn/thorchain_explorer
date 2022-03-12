@@ -44,7 +44,7 @@
 
 <script>
 import { AssetImage } from '~/classes/assetImage';
-import CopyIcon from '~/assets/images/copy.svg';
+import CopyIcon from '~/assets/images/copy.svg?inline';
 
 export default {
   methods: {

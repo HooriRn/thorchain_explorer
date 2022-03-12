@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import angleDoubleLeft from '@/assets/images/angle-double-left.svg';
-import angleLeft from '@/assets/images/angle-left.svg';
-import angleRight from '@/assets/images/angle-right.svg';
-import angleDoubleRight from '@/assets/images/angle-double-right.svg';
+import angleDoubleLeft from '@/assets/images/angle-double-left.svg?inline';
+import angleLeft from '@/assets/images/angle-left.svg?inline';
+import angleRight from '@/assets/images/angle-right.svg?inline';
+import angleDoubleRight from '@/assets/images/angle-double-right.svg?inline';
 
 export default {
   name: 'Pagination',

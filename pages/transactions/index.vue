@@ -50,13 +50,13 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .loading {
   display: flex;
   justify-content: center;
 }
 
-.header {
+.transactions-container .header {
   font-size: 1.5rem;
   margin-bottom: 1rem;
   color: #e6e6e6;

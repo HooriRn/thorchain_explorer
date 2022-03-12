@@ -250,23 +250,43 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .pool-container {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
 
   .asset-icon {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
-    margin-right: 0.4rem;
+    margin-bottom: 1rem;
   }
 
   .pool-header {
     font-weight: bold;
     color: #e6e6e6;
-    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  @include sm {
+    flex-direction: row;
+    justify-content: flex-start;
+
+    .asset-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: 0.4rem;
+      margin-bottom: 0rem;
+    }
+
+    .pool-header {
+      text-align: initial;
+      word-break: break-word;
+      font-size: 1.2rem;
+    }
   }
 
   .pool-overview {

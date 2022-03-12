@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import WalletIcon from '~/assets/images/wallet.svg';
-import CopyIcon from '~/assets/images/copy.svg';
-import ExpandIcon from '~/assets/images/expand.svg';
+import WalletIcon from '~/assets/images/wallet.svg?inline';
+import CopyIcon from '~/assets/images/copy.svg?inline';
+import ExpandIcon from '~/assets/images/expand.svg?inline';
 import QrcodeVue from 'qrcode.vue'
 
 export default {
