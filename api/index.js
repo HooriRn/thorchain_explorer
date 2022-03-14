@@ -29,6 +29,10 @@ const errorInterceptor = error => {
           console.warn( 'Wrong Request');
           break;
 
+      case 503: // Wrong request
+          console.warn( 'Service Unavailable');
+          break;
+
       default:
           console.error(error.response.status, error.message);
           console.error('Server Error');

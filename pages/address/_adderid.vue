@@ -20,12 +20,17 @@
         </transition>
       </div>
     </div>
-    <div class="stat-wrapper">
-      <stat-table :tableSettings="addressStat"></stat-table>
+    <template v-if="addrTxs">
+      <div class="stat-wrapper">
+        <stat-table :tableSettings="addressStat"></stat-table>
+      </div>
+      <div style="margin: 1rem 0"></div>
+      <transactions v-if="addrTxs && addrTxs.actions" :txs="addrTxs" :loading="loading"></transactions>
+      <pagination v-if="addrTxs && addrTxs.actions && count" :limit="10" :offset="offset" :count="count" @changePage="getActions"></pagination>
+    </template>
+    <div class="error-container" v-else>
+      Can't Fetch the Address! Please Try again Later.
     </div>
-    <div style="margin: 1rem 0"></div>
-    <transactions v-if="addrTxs && addrTxs.actions" :txs="addrTxs" :loading="loading"></transactions>
-    <pagination v-if="addrTxs && addrTxs.actions && count" :limit="10" :offset="offset" :count="count" @changePage="getActions"></pagination>
   </div>
 </template>
 
@@ -100,8 +105,10 @@ export default {
   },
   async asyncData({params, $api}) {
     const address = params.adderid;
-    const addrTxs = await $api.getAddress(address, 0);
-    const count = addrTxs.data.count;
+    const addrTxs = await $api.getAddress(address, 0).catch(e => {
+      console.error(e);
+    });
+    const count = addrTxs?.data?.count ?? 0;
     let balance = 0;
     let otherBalances = [];
     // TODO: change with regex
@@ -130,7 +137,7 @@ export default {
       }
     }
 
-    return { address, addrTxs: addrTxs.data, count, balance, otherBalances }
+    return { address, addrTxs: addrTxs?.data, count, balance, otherBalances }
   },
   async mounted() {
   }
